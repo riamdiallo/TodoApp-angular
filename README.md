@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # TodoApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
@@ -29,3 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 =======
 # TodoApp-angular
 >>>>>>> 37f72d703a9ab7fdaff6ea83cc91c467cfbc519b
+=======
+# TodoApp-angular
+# Application de gestion de tâches en angular
+>>>>>>> 458f25c87cf54ba26afa4ae64839af8da67b3c22
