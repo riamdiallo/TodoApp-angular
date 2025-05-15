@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Routes } from '@angular/router';
+import { TodoService } from './core/services/skip-tests.service';
+import { Router } from '@angular/router';
 
 
 export const routes: Routes = [
@@ -19,6 +21,19 @@ export const routes: Routes = [
   {
     path: 'todo',
     title: 'todo | TodoApp',
+
+   canActivate: [() => {
+    const router = inject(Router);
+    const todoService = inject(TodoService);
+
+    if (todoService.isLoggedIn()) {
+      return true;
+    } else {
+      router.navigate(['login']); // ✅ redirection ici
+      return false;
+    }
+  }],
+
     loadComponent : () => import ('./components/todo/todo.component')
   },
 
