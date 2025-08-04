@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component,Input } from '@angular/core';
+import { Component,Input,inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TodoService } from '../../core/services/skip-tests.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,9 +10,25 @@ import { RouterModule } from '@angular/router';
   template: `
     <nav class="toolbar">
       <a  class="app-todo" routerLink='/'>TodoAdam</a>
-      <button class="toolbar-btn" routerLink="/register" *ngIf='isLoginBtnShown'> S'incrire</button>
-      <button class="toolbar-btn" routerLink="/login" *ngIf="isRegisterBtnShown">Se connecter</button>
-      <button class="toolbar-btn" routerLink="/login" *ngIf="isLogoutBtnshown">Se déconnecter</button>
+        <button class="toolbar-btn"
+                  routerLink="/register" *ngIf='isLoginBtnShown'>
+                   S'incrire
+        </button>
+        <button class="toolbar-btn"
+                  routerLink="/login" *ngIf="isRegisterBtnShown">
+                  Se connecter
+        </button>
+       <div class="avatar-logout-btn" *ngIf="isLogoutBtnshown">
+          <div class="user-avatar">
+             {{firstEmailLetter![0]}}
+          </div>
+          <button class="toolbar-btn"
+              routerLink="/login"
+               (click) ="logOut()">
+              Se déconnecter
+          </button>
+       </div>
+
     </nav>
   `,
   styles: `
@@ -46,6 +63,29 @@ import { RouterModule } from '@angular/router';
           transform: scale(1.1);
         }
       }
+       .avatar-logout-btn {
+          display: flex;
+          align-items: center;
+
+          & > * {
+            margin-right:1rem; // ← espace entre les éléments
+          }
+       }
+
+      .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;            // Forme ronde
+      display: flex;                 // Centre le contenu à l’intérieur
+      justify-content: center;
+      align-items: center;
+      background: lightpink;         // Couleur de fond
+      font-size: 1.3em;              // Taille du texte (initiales par ex)
+      font-weight: bolder;          // Texte en gras
+   }
+
+
+
   `
 })
 export class ToolbarComponent {
@@ -54,4 +94,14 @@ export class ToolbarComponent {
   @Input () isRegisterBtnShown!: boolean;
   @Input() isLogoutBtnshown!: boolean;
 
+
+
+  // Référence à la fonction getUsers()  pour récupérer les utilisateurs plus tard déclaré dans le TodoService
+
+
+    firstEmailLetter = localStorage.getItem('email')
+
+
+  // fonction de deconnexion de l'utilisateur
+   logOut  = () => localStorage.removeItem('email');
 }

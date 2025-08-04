@@ -24,7 +24,7 @@ import { Router } from '@angular/router';
         <p *ngIf="showError">{{errorMsg}}</p>
          <button class="auth-btn"
             [ngClass]="{'active-btn': !loginForm.invalid}"
-            [disabled] ="loginForm.invalid" click="onSubmit()">
+            [disabled] ="loginForm.invalid" (click)="onSubmit()">
             Connexion
         </button>
     </form>
